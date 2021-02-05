@@ -1,0 +1,42 @@
+.no-search-message {
+  font-weight: lighter;
+  font-size: 1.3em;
+  color: #9E9E9E;
+  text-align: center;
+
+  span {
+    margin-top: 12px;
+    font-size: 0.75em;
+    display: block;
+  }
+}
+
+app-search-input {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+
+.mat-chip{
+  background-color: #bbc3ab !important;
+}
+a{
+  color: darkolivegreen;
+}
+
+.book-list-wrapper{
+  padding:3em;
+  padding-top: 0em;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+.card-footer{
+  background-color: #dde1d5 !important;
+}

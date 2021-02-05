@@ -1,0 +1,77 @@
+<div class="book-list-wrapper" fxLayout="column" fxLayoutAlign="center center">
+  <app-search-input (search)="onSearch($event)"></app-search-input>
+  <div *ngIf="loading">
+    <mat-spinner diameter="45"></mat-spinner>
+  </div>
+
+  <div *ngIf="bookList?.length && !loading" class="book-list" fxLayout="row wrap" fxLayoutGap="12px"
+       fxLayoutAlign="center center">
+    <div class="card-columns ">
+      <div *ngFor="let book of bookList ; let i = index">
+        <div class="card">
+          <div class="card-body">
+            <img *ngIf="book?.volumeInfo?.imageLinks" [src]="book?.volumeInfo?.imageLinks?.thumbnail" class="center"
+                 alt="No photo!" loading="lazy">
+            <br>
+            <h3 class="card-title">{{book?.volumeInfo?.title}}</h3>
+            <div class="card-text font-weight-lighter "> By {{getBookAAuthors(book)}}</div>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <mat-chip-list class="col-md-9 col-sm-12">
+                <mat-chip *ngFor="let category of book?.volumeInfo?.categories">{{ category }}</mat-chip>
+              </mat-chip-list>
+              <a [routerLink]="['/details', book?.id]" class="col-md-3 col-sm-12">More <em
+                class="fa fa-angle-double-right"></em></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!bookList?.length && !categoriesLoading" class="book-list" fxLayout="row wrap" fxLayoutGap="12px"
+     fxLayoutAlign="center center">
+  <div class="card text-center">
+    <div class="card-body">
+      <h1 class="card-title">Top trending categories</h1>
+      <mat-chip-list class="col-md-9 col-sm-12">
+        <mat-chip *ngFor="let category of categories">{{ category.name }}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!bookList?.length && trending?.length && !linksLoading" class="book-list" fxLayout="row wrap" fxLayoutGap="12px"
+     fxLayoutAlign="center center">
+  <hr>
+  <div fxLayoutAlign="center center" class="mt-3">
+    <h1>Top trending books</h1>
+  </div>
+  <br>
+  <div class="card-columns ">
+    <div *ngFor="let book of trending ; let i = index">
+      <div class="card">
+        <div class="card-body">
+          <img *ngIf="book?.volumeInfo?.imageLinks" [src]="book?.volumeInfo?.imageLinks?.thumbnail" class="center"
+               alt="No photo!" loading="lazy">
+          <br>
+          <h3 class="card-title">{{book?.volumeInfo?.title}}</h3>
+          <div class="card-text font-weight-lighter "> By {{getBookAAuthors(book)}}</div>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <mat-chip-list class="col-md-9 col-sm-12">
+              <mat-chip>{{ book?.volumeInfo?.categories[0] }}</mat-chip>
+            </mat-chip-list>
+            <a [routerLink]="['/details', book?.id]" class="col-md-3 col-sm-12">More <em
+              class="fa fa-angle-double-right"></em></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

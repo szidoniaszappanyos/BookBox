@@ -1,0 +1,94 @@
+<!--<mat-card>
+  <mat-card-title>{{ book?.volumeInfo?.title }}</mat-card-title>
+  <mat-card-content fxLayout fxLayoutGap="24px">
+    <div class="img-wrapper">
+      <img [src]="book?.volumeInfo?.imageLinks?.thumbnail" alt="Sorry! No photo!" loading="lazy">
+    </div>
+    <div class="book-info" fxFlex="60%">
+      <p>
+        <strong>Author(s): </strong>
+        <span>{{ bookAuthors }}</span>
+      </p>
+      <p>
+        <strong>Publisher: </strong>
+        <span>{{ book?.volumeInfo?.publisher || '...' }}</span>
+      </p>
+      <p>
+        <strong>Published: </strong>
+        <span>{{ book?.volumeInfo?.publishedDate | date }}</span>
+      </p>
+      <p>
+        <strong>Description: </strong>
+        <span>{{ bookShortedDescription }} <a class="read-more-link" [href]="book?.volumeInfo?.previewLink" target="_blank" rel="noopener">Read more</a></span>
+      </p>
+    </div>
+  </mat-card-content>
+  <mat-card-footer>
+    <mat-chip-list>
+      <mat-chip *ngFor="let category of book.volumeInfo.categories">{{ category }}</mat-chip>
+    </mat-chip-list>
+
+    <a mat-icon-button [href]="book?.volumeInfo?.previewLink" target="_blank" rel="noopener">
+      <mat-icon>launch</mat-icon>
+    </a>
+  </mat-card-footer>
+</mat-card>-->
+
+<div *ngIf="loading" fxLayoutAlign="center center">
+  <mat-spinner diameter="45"></mat-spinner>
+</div>
+
+
+<div *ngIf="book && !loading">
+  <div class="card">
+    <div class="card-body">
+      <div class="row g-0">
+        <div class="col-md-2" *ngIf="book?.volumeInfo?.imageLinks">
+          <img [src]="book?.volumeInfo?.imageLinks?.thumbnail" class="center"
+               alt="No photo!" loading="lazy">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <br>
+            <h1 class="card-title ">{{book?.volumeInfo?.title}}</h1>
+            <h3 >{{book?.volumeInfo?.subtitle}}</h3>
+            <div class="card-text font-weight-lighter "> By {{getBookAuthors(book)}}</div>
+            <hr>
+            <p>
+              <strong>Author(s): </strong>
+              <span>{{ getBookAuthors(book) }}</span>
+            </p>
+            <p *ngIf="book?.volumeInfo?.publisher">
+              <strong>Publisher: </strong>
+              <span>{{ book?.volumeInfo?.publisher || '...' }}</span>
+            </p>
+            <p *ngIf="book?.volumeInfo?.publishedDate">
+              <strong>Published: </strong>
+              <span>{{ book?.volumeInfo?.publishedDate | date }}</span>
+            </p>
+            <p *ngIf="book?.volumeInfo?.pageCount">
+              <strong>Pages: </strong>
+              <span>{{ book?.volumeInfo?.pageCount }}</span>
+            </p>
+            <p *ngIf="book?.volumeInfo?.description">
+              <strong>Description: </strong>
+            </p>
+            <div innerHtml="{{book?.volumeInfo?.description}}"></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <mat-chip-list class="col-md-9 col-sm-12">
+            <mat-chip *ngFor="let category of book.volumeInfo.categories">{{ category }}</mat-chip>
+          </mat-chip-list>
+          <a [href]="book?.volumeInfo?.infoLink" class="col-md-3 col-sm-12">Get this book <em class="fa fa-angle-double-right"></em></a>
+        </div>
+      </div>
+    </div>
+    <div class="embed-responsive embed-responsive-16by9" *ngIf="book?.accessInfo?.embeddable">
+      <iframe width="100%" height="1000" class="embed-responsive-item" title="google" [src]="url"
+              allowfullscreen></iframe>
+    </div>
+  </div>
