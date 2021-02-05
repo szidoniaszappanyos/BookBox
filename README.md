@@ -1,6 +1,6 @@
 # BookBox
 
-This is book library where you can search, see details and read previews of books. 
+This is a book library where you can search, see details and read previews of books. 
 You can also see top trending categories and books.
 
 The aplication is responsive and works for most screens sizes, including phones.
